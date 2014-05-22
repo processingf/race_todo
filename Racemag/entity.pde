@@ -60,7 +60,7 @@ class entity
   
   public boolean Collides(entity obj)
   {
-    boolean isColl = Collision(obj.Coll[0]);
+    boolean isColl = Collides(obj.Coll[0]);
     if(!isColl || obj.Coll.length == 1) return isColl;
     isColl = false;
     for(int i=1; i<obj.Coll.length; i++)

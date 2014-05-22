@@ -4,9 +4,8 @@ PImage roadImg;
 
 void Init()
 {
-  roadImg = loadImage("Road.jpg");
-  ClearAllData();
-  ImageBuff[1] = loadImage("Car0.png");
+  textSize(24);
+  Input.Load();
 }
 
 void LoadPlayers()

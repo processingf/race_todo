@@ -1,21 +1,22 @@
 /*
- * RICOCHET - Car game by Naruto Fan
+ * RACEMAG - First Car game
  */
 // Cars (Angle), Track, Items, Pickups, Particles, Attacks, Zombies, ...
 import ddf.minim.*;
 
+PImage backImg;
+
 void setup()
 {
   size(800, 600, P2D);
-  imageMode(CENTER);
   rectMode(CENTER);
   Init();
-  // LoadMainMenu(loadXML("MainMenu.xml"));
+  backImg = loadImage("CatFight.jpg");
 }
 
 void draw()
 {
-  background(180);
-  Map();
+  image(backImg, 0, 0, 800, 600);
+  Cursor.Draw();
 }
 

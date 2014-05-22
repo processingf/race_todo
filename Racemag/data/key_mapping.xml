@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<key_mapping>
+
+<keymap keyname="Esc" inpname="Menu" />
+<keymap keyname="W" inpname="P1-Forward" />
+<keymap keyname="S" inpname="P1-Rear" />
+<keymap keyname="A" inpname="P1-Left" />
+<keymap keyname="D" inpname="P1-Right" />
+<keymap keyname="E" inpname="P1-Boost" />
+<keymap keyname="Q" inpname="P1-Power1" />
+<keymap keyname="R" inpname="P1-Power2" />
+<keymap keyname="Num 8" inpname="P2-Forward" />
+<keymap keyname="Num 5" inpname="P2-Rear" />
+<keymap keyname="Num 4" inpname="P2-Left" />
+<keymap keyname="Num 6" inpname="P2-Right" />
+<keymap keyname="Num 9" inpname="P2-Boost" />
+<keymap keyname="Num 7" inpname="P2-Power1" />
+<keymap keyname="Num +" inpname="P2-Power2" />
+
+</key_mapping>

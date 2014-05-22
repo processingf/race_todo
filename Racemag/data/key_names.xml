@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<key_names>
+
+<!-- Referred from: http://www.foreui.com/articles/keyname_Code_Table.htm -->
+<keyname id="8" value="Backspace" />
+<keyname id="9" value="Tab" />
+<keyname id="10" value="Enter" />
+<keyname id="16" value="Shift" />
+<keyname id="17" value="Ctrl" />
+<keyname id="18" value="Alt" />
+<keyname id="19" value="Pause/Break" />
+<keyname id="20" value="Caps Lock" />
+<keyname id="27" value="Esc" />
+<keyname id="32" value="Space" />
+<keyname id="33" value="Page Up" />
+<keyname id="34" value="Page Down" />
+<keyname id="35" value="End" />
+<keyname id="36" value="Home" />
+<keyname id="37" value="Left" />
+<keyname id="38" value="Up" />
+<keyname id="39" value="Right" />
+<keyname id="40" value="Down" />
+<keyname id="45" value="Insert" />
+<keyname id="46" value="Delete" />
+<keyname id="48" value="0" />
+<keyname id="49" value="1" />
+<keyname id="50" value="2" />
+<keyname id="51" value="3" />
+<keyname id="52" value="4" />
+<keyname id="53" value="5" />
+<keyname id="54" value="6" />
+<keyname id="55" value="7" />
+<keyname id="56" value="8" />
+<keyname id="57" value="9" />
+<keyname id="59" value=";" />
+<keyname id="61" value="=" />
+<keyname id="65" value="A" />
+<keyname id="66" value="B" />
+<keyname id="67" value="C" />
+<keyname id="68" value="D" />
+<keyname id="69" value="E" />
+<keyname id="70" value="F" />
+<keyname id="71" value="G" />
+<keyname id="72" value="H" />
+<keyname id="73" value="I" />
+<keyname id="74" value="J" />
+<keyname id="75" value="K" />
+<keyname id="76" value="L" />
+<keyname id="77" value="M" />
+<keyname id="78" value="N" />
+<keyname id="79" value="O" />
+<keyname id="80" value="P" />
+<keyname id="81" value="Q" />
+<keyname id="82" value="R" />
+<keyname id="83" value="S" />
+<keyname id="84" value="T" />
+<keyname id="85" value="U" />
+<keyname id="86" value="V" />
+<keyname id="87" value="W" />
+<keyname id="88" value="X" />
+<keyname id="89" value="Y" />
+<keyname id="90" value="Z" />
+<keyname id="91" value="OS" />
+<keyname id="93" value="Menu" />
+<keyname id="96" value="Num 0" />
+<keyname id="97" value="Num 1" />
+<keyname id="98" value="Num 2" />
+<keyname id="99" value="Num 3" />
+<keyname id="100" value="Num 4" />
+<keyname id="101" value="Num 5" />
+<keyname id="102" value="Num 6" />
+<keyname id="103" value="Num 7" />
+<keyname id="104" value="Num 8" />
+<keyname id="105" value="Num 9" />
+<keyname id="106" value="Num *" />
+<keyname id="107" value="Num +" />
+<keyname id="109" value="Num -" />
+<keyname id="110" value="Num ." />
+<keyname id="111" value="Num /" />
+<keyname id="112" value="F1" />
+<keyname id="113" value="F2" />
+<keyname id="114" value="F3" />
+<keyname id="115" value="F4" />
+<keyname id="116" value="F5" />
+<keyname id="117" value="F6" />
+<keyname id="118" value="F7" />
+<keyname id="119" value="F8" />
+<keyname id="120" value="F9" />
+<keyname id="121" value="F10" />
+<keyname id="122" value="F11" />
+<keyname id="123" value="F12" />
+<keyname id="144" value="Num Lock" />
+<keyname id="145" value="Scroll Lock" />
+<keyname id="182" value="Computer" />
+<keyname id="182" value="Calculator" />
+<keyname id="188" value="," />
+<keyname id="190" value="." />
+<keyname id="191" value="/" />
+<keyname id="192" value="~" />
+<keyname id="219" value="[" />
+<keyname id="220" value="\" />
+<keyname id="221" value="]" />
+<keyname id="222" value="'" />
+
+</key_names>
