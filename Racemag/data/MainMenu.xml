@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<mainmenu>
+
+<loadfont id="0" file="BerlinSansFB-Reg-64.vlw" />
+<loadimage id="0" file="CatFight.jpg" />
+
+<image value="0" x="0" y="0" />
+<text value="Ricochet"  x="100" y="100" size="64" font="h1" />
+<menuitem value="Mode" x="" y="" size="" font="h2" />
+<menuitem value="Map" x="" y="" size="" font="h2" />
+<menuitem value="Settings" x="" y="" size="" font="h2" />
+<menuitem value="Play" x="" y="" size="" font="h2" />
+<menuitem value="Keys" x="" y="" size="" font="h2" />
+<menuitem value="Exit" x="" y="" size="" font="h2" />
+
+</mainmenu>
