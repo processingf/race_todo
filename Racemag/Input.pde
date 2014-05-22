@@ -1,9 +1,8 @@
 class input
 {
-  int[] KeyMap;
-  String[] KeyName; 
+  int[] Map;
+  String[] Name; 
   boolean[] Active;
-  IntDict KeyCode, InpCode;
   
   // key constants
   final int MENU = 01;
@@ -23,69 +22,72 @@ class input
   final int P2_POWER2 = 26;
 
   // input setting files
-  final String KeyNamesFile = "key_names.xml";
-  final String InpNamesFile = "inp_names.xml";
-  final String KeyMappingFile = "key_mapping.xml";
+  final String NamesFile = "key_names.xml";
+  final String MappingFile = "key_mapping.xml";
   
   input()
   {
-    KeyMap = new int[256];
-    KeyName = new String[256];
+    Map = new int[256];
+    Name = new String[256];
     ClearActive();
-    KeyCode = new IntDict();
-    InpCode = new IntDict();
   }
   
   void ClearActive()
-  { Active = new boolean[256]; }
+  { Active = new boolean[64]; }
 
-  void LoadKeyNames(XML xml)
+  void LoadNames(XML xml)
   {
     XML[] keyXml = xml.getChildren("keyname");
     for(int i=0; i<keyXml.length; i++)
     {
       int id = keyXml[i].getInt("id");
       String value = keyXml[i].getString("value");
-      KeyName[id] = value;
-      KeyCode.set(value, id);
+      Name[id] = value;
     }
   }
-  
-  void LoadInpNames(XML xml)
-  {
-    XML[] inpXml = xml.getChildren("inpname");
-    for(int i=0; i<inpXml.length; i++)
-    {
-      int id = inpXml[i].getInt("id");
-      String value = inpXml[i].getString("value");
-      InpCode.set(value, id);
-    }
-  }
-    
-  void LoadKeyMap(XML xml)
+
+  void LoadMapping(XML xml)
   {
     XML[] mapXml = xml.getChildren("keymap");
     for(int i=0; i<mapXml.length; i++)
     {
-      String keyNm = mapXml[i].getString("keyname");
-      String inpNm = mapXml[i].getString("inpname");
-      KeyMap[KeyCode.get(keyNm)] = InpCode.get(inpNm);
+      int id = mapXml[i].getInt("id");
+      int value = mapXml[i].getInt("value");
+      Map[id] = value;
     }
   }
   
   void Load()
   {
-    LoadKeyNames(loadXML(KeyNamesFile));
-    LoadInpNames(loadXML(InpNamesFile));
-    LoadKeyMap(loadXML(KeyMappingFile));
+    LoadNames(loadXML(NamesFile));
+    LoadMapping(loadXML(MappingFile));
+  }
+  
+  void SaveMapping(XML xml)
+  {
+    for(int i=0; i<Map.length; i++)
+    {
+      if(Map[i] == 0) continue;
+      XML mapXml = xml.addChild("keymap");
+      mapXml.setInt("id", i);
+      mapXml.setInt("value", Map[i]);
+    }
+  }
+  
+  void Save()
+  {
+    String xmlStr = "<?xml version=\"1.0\"?>\n"+"<key_mapping>\n"+"</key_mapping>\n";
+    XML xml = parseXML(xmlStr);
+    SaveMapping(xml);
+    saveXML(xml, "data\\"+MappingFile);
   }
 }
 
 input Input = new input();
 
 void keyPressed()
-{ /*ActiveKey[KeyMap[keyCode]] = true;*/ Cursor.Text = ""+Input.KeyMap[keyCode]; }
+{ Input.Active[Input.Map[keyCode]] = true; Cursor.Text = ""+Input.Map[keyCode]; }
 
 void keyReleased()
-{ /*ActiveKey[KeyMap[keyCode]] = false;*/ }
+{ Input.Active[Input.Map[keyCode]] = false; }
 

@@ -6,6 +6,7 @@ void Init()
 {
   textSize(24);
   Input.Load();
+  Input.Save();
 }
 
 void LoadPlayers()
