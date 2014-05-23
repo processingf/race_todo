@@ -9,7 +9,6 @@ PImage backImg;
 void setup()
 {
   size(800, 600, P2D);
-  rectMode(CENTER);
   Init();
   backImg = loadImage("CatFight.jpg");
 }
@@ -17,6 +16,7 @@ void setup()
 void draw()
 {
   image(backImg, 0, 0, 800, 600);
+  Update();
   Cursor.Draw();
   Vwr1.BeginView();
   Vwr1.X = mouseX;

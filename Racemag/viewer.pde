@@ -20,8 +20,8 @@ class viewer
   void BeginView()
   {
     View.beginDraw();
-    View.translate(X, Y);
-    View.rotate(Angle);
+    View.translate(-X, -Y);
+    View.rotate(-Angle);
     View.scale(Scale);
     View.rectMode(CENTER);
     View.imageMode(CENTER);

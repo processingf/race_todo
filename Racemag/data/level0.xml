@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<level0>
+
+<!-- load data -->
+<image id="0" file="Car0.png" />
+<image id="1" file="Car1.png" />
+
+<!-- level entities -->
+<entity id="0" layer="0" image="0" x="0" y="0" angle="0" scale="1" />
+<entity id="0" layer="1" image="0" x="200" y="0" angle="1" scale="0.5" />
+<entity id="0" layer="2" image="0" x="0" y="200" angle="2" scale="0.2" />
+<entity id="1" layer="0" image="1" x="0" y="0" angle="0" scale="1" />
+<entity id="1" layer="1" image="1" x="0" y="200" angle="1" scale="0.5" />
+<entity id="1" layer="2" image="1" x="200" y="0" angle="2" scale="0.2" />
+<entity id="1" layer="3" image="1" x="200" y="0" angle="3" scale="0.1" />
+
+</level0>

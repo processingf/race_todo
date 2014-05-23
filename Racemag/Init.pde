@@ -1,6 +1,8 @@
 Minim minim = new Minim(this);
 PImage roadImg;
 viewer Vwr1;
+viewer CamP1;
+level Level;
 
 void Init()
 {
@@ -8,6 +10,9 @@ void Init()
   Input.Load();
   Input.Save();
   Vwr1 = new viewer(0, 0, 100, 100);
+  CamP1 = new viewer(100, 100, 500, 500);
+  Level = new level();
+  Level.Load("level0.xml");
 }
 
 void LoadPlayers()
