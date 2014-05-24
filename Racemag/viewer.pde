@@ -6,6 +6,7 @@ class viewer
   float X, Y, Angle, Scale;
   int ViewX, ViewY, SizeX, SizeY;
   
+  
   viewer(int viewx, int viewy, int sizex, int sizey)
   {
     X = Y = Angle = 0; Scale = 1;
@@ -20,9 +21,10 @@ class viewer
   void BeginView()
   {
     View.beginDraw();
-    View.translate(-X, -Y);
-    View.rotate(-Angle);
+    View.translate(SizeX/2, SizeY/2);
     View.scale(Scale);
+    View.rotate(-Angle);
+    View.translate(-X, -Y);
     View.rectMode(CENTER);
     View.imageMode(CENTER);
     View.ellipseMode(CENTER);
@@ -31,6 +33,8 @@ class viewer
   
   void EndView()
   {
+    View.fill(255);
+    View.rect(0, 0, 10, 10);
     View.endDraw();
     ActiveView = null;
   }

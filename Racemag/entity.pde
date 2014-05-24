@@ -9,6 +9,7 @@ class entity
     X = x; Y = y;
     Angle = angle;
     Scale = scale;
+    
   }
 
   public void Draw(PGraphics v)

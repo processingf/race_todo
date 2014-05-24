@@ -11,9 +11,6 @@ void Update()
   if(i.Active[i.P2_REAR]) CamP1.Scale -= 0.05;
   CamP1.BeginView();
   Level.Draw(CamP1.View);
-  println("Update");
   CamP1.EndView();
-  println("Update");
   CamP1.Draw();
-  println("Update");
 }

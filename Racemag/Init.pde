@@ -13,6 +13,7 @@ void Init()
   CamP1 = new viewer(100, 100, 500, 500);
   Level = new level();
   Level.Load("level0.xml");
+  Level.Sound[0].play();
 }
 
 void LoadPlayers()

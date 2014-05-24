@@ -4,6 +4,7 @@
 <!-- load data -->
 <image id="0" file="Car0.png" />
 <image id="1" file="Car1.png" />
+<sound id="0" file="Frontend.mp3" />
 
 <!-- level entities -->
 <entity id="0" layer="0" image="0" x="0" y="0" angle="0" scale="1" />
