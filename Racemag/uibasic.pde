@@ -1,13 +1,13 @@
 // draw distance issue (it changes upon scaling)
 
-class uirect extends uielem
+class uibox extends uielem
 {
-  color Color;
   float Width, Height;
+  color Color;
   
-  uirect(color clr, float wdth, float hght, float x, float y, float size, float angle)
+  uibox(float x, float y, float angle, float scale, float wdth, float hght, color clr)
   {
-    super(x, y, size, angle);
+    super(x, y, angle, scale);
     Color = clr;
     Width = wdth;
     Height = hght;
@@ -15,17 +15,68 @@ class uirect extends uielem
   }
   
   private void DrawThis(PGraphics v)
-  { v.rect(0, 0, Width, Height); }
+  {
+    v.noStroke();
+    v.fill(Color)
+    v.rect(0, 0, Width, Height);
+  }
 }
 
 
-class uishape extends uirect
+class uirect extends uibox
+{
+  float EdgeWidth;
+  color EdgeColor;
+  
+  uirect(float x, float y, float angle, float scale, float wdth, float hght, color clr, float edgeWdth, color edgeClr)
+  {
+    super(x, y, angle, scale, wdth, hght, clr);
+    EdgeWidth = edgeWdth;
+    EdgeColor = edgeClr;
+  }
+  
+  private void DrawThis(PGraphics v)
+  {
+    v.strokeWeight(EdgeWidth);
+    v.stroke(EdgeColor);
+    v.fill(Color);
+    v.rect(0, 0, Width, Height);
+  }
+}
+
+
+class uitext extends uibox
+{
+  String Text;
+  PFont Font;
+  float Size;
+  boolean Boxed;
+  int AlignX, AlignY;
+  
+  uitext(float x, float y, float angle, float scale, color clr, String txt, PFont fnt, float size)
+  {
+    super(x, y, angle, scale, 0, 0, clr);
+    Text = txt; Font = fnt; Size = size; Boxed = false;
+    AlignX = CENTER; AlignY = CENTER;
+  }
+  
+  private void DrawThis(PGraphics v)
+  {
+    v.textFont(Font, Size);
+    v.textAlign(AlignX, AlignY);
+    if(Boxed) v.text(Text, 0, 0, Width, Height);
+    v.text(Text, 0, 0);
+  }
+}
+
+
+class uishape extends uibox
 {
   PShape Shape;
   
-  uishape(PShape shp, float x, float y, float size, float angle)
+  uishape(float x, float y, float angle, float scale, PShape shp)
   {
-    super(0, shp.width, shp.height, x, y, size, angle);
+    super(x, y, angle, scale, shp.width, shp.height, 0);
     Shape = shp;
   }
   
@@ -34,47 +85,30 @@ class uishape extends uirect
 }
 
 
-class uiimage extends uirect
+class uiimage extends uibox
 {
   PImage Image;
+  color TintColor;
+  int BlendMode;
+  boolean Tint, Blend;
   
-  uiimage(PImage img, float x, float y, float size, float angle)
+  uiimage(float x, float y, float angle, float scale, PImage img)
   {
-    super(0, img.width, img.height, x, y, size, angle);
+    super(x, y, angle, scale, img.width, img.height, 0);
     Image = img;
+    TintColor = 0;
+    BlendMode = BLEND;
+    Tint = false;
+    Blend = false;
   }
   
   private void DrawThis(PGraphics v)
-  { v.image(Image, 0, 0, Width, Height); }
-}
-
-
-class uitext extends uirect
-{
-  String Text;
-  PFont Font;
-  boolean Boxed;
-  int AlignX, AlignY;
-  
-  uitext(String txt, PFont fnt, float txtSz, color clr, float x, float y, float size, float angle)
   {
-    super(
-  } 
-}
-
-
-class uiblendimage extends uirect
-{
-  PImage Image;
-  
-  uiimage(PImage img, float x, float y, float size, float angle)
-  {
-    super(img.width, img.height, x, y, size, angle);
-    Image = img;
+    if(Tint) v.tint(TintColor);
+    else v.noTint();
+    if(Blend) v.blend(Image, 0, 0, img.width, img.height, 0, 0, Width, Height, BlendMode);
+    else v.image(Image, 0, 0, Width, Height);
   }
-  
-  private void DrawThis(PGraphics v)
-  { v.image(Image, 0, 0, Width, Height); }
 }
 
 

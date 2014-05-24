@@ -9,8 +9,7 @@ class uielem
   
   uielem(uielem e)
   {
-    X = e.X;
-    Y = e.Y;
+    X = e.X; Y = e.Y;
     Angle = e.Angle;
     Scale = e.Scale;
     Parent = e.Parent;
@@ -23,6 +22,7 @@ class uielem
     X = x; Y = y;
     Angle = angle;
     Scale = scale;
+    DrawDistance = 0;
   }
   
   uielem GetDirection(float off)
