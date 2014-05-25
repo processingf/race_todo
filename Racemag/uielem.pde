@@ -31,12 +31,12 @@ class uielem
   float GetDistanceTo(float x, float y)
   { return abs(X - x) + abs(Y - y); }
   
-  public boolean Supports(int type)
+  boolean Supports(int type)
   { return type == 0; }
 
-  private void UpdateThis() {}
+  void UpdateThis() {}
   
-  public void Update()
+  void Update()
   {
     Drawn = false;
     UpdateThis();
@@ -45,9 +45,9 @@ class uielem
     { Children[i].Update(); }
   }
   
-  private void DrawThis(PGraphics v) {}
+  void DrawThis(PGraphics v) {}
   
-  public void Draw(PGraphics v)
+  void Draw(PGraphics v)
   {
     if(Drawn) return;
     v.pushMatrix();

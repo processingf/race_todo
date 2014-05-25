@@ -1,7 +1,6 @@
 Minim minim = new Minim(this);
 PImage roadImg;
-viewer Vwr1;
-viewer CamP1;
+uicamera CamP1;
 level Level;
 
 void Init()
@@ -9,8 +8,7 @@ void Init()
   textSize(24);
   Input.Load();
   Input.Save();
-  Vwr1 = new viewer(0, 0, 100, 100);
-  CamP1 = new viewer(100, 100, 500, 500);
+  CamP1 = new uicamera(100, 100, 500, 500);
   Level = new level();
   Level.Load("level0.xml");
   Level.Sound[0].play();

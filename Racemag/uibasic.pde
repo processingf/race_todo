@@ -1,5 +1,3 @@
-// draw distance issue (it changes upon scaling)
-
 class uibox extends uielem
 {
   float Width, Height;
@@ -14,10 +12,10 @@ class uibox extends uielem
     DrawDistance = wdth + hght;
   }
   
-  private void DrawThis(PGraphics v)
+  void DrawThis(PGraphics v)
   {
     v.noStroke();
-    v.fill(Color)
+    v.fill(Color);
     v.rect(0, 0, Width, Height);
   }
 }
@@ -35,7 +33,7 @@ class uirect extends uibox
     EdgeColor = edgeClr;
   }
   
-  private void DrawThis(PGraphics v)
+  void DrawThis(PGraphics v)
   {
     v.strokeWeight(EdgeWidth);
     v.stroke(EdgeColor);
@@ -60,12 +58,12 @@ class uitext extends uibox
     AlignX = CENTER; AlignY = CENTER;
   }
   
-  private void DrawThis(PGraphics v)
+  void DrawThis(PGraphics v)
   {
     v.textFont(Font, Size);
     v.textAlign(AlignX, AlignY);
     if(Boxed) v.text(Text, 0, 0, Width, Height);
-    v.text(Text, 0, 0);
+    else v.text(Text, 0, 0);
   }
 }
 
@@ -79,8 +77,24 @@ class uishape extends uibox
     super(x, y, angle, scale, shp.width, shp.height, 0);
     Shape = shp;
   }
-  
-  private void DrawThis(PGraphics v)
+
+  uishape(float x, float y, float angle, float scale, PImage txtr, int mode, int wrap, float[] vx, float[] vy, float[] ix, float[] iy)
+  {
+    super(x, y, angle, scale, 0, 0, 0);
+    PShape s = createShape();
+    s.beginShape();
+    s.textureMode(mode);
+    textureWrap(wrap);
+    s.texture(txtr);
+    for(int i=0; i<vx.length; i++)
+    { s.vertex(vx[i], vy[i], ix[i], iy[i]); }
+    s.endShape(CLOSE);
+    Shape = s;
+    Width = s.width;
+    Height = s.height;
+  }
+
+  void DrawThis(PGraphics v)
   { v.shape(Shape, 0, 0, Width, Height); }
 }
 
@@ -102,13 +116,12 @@ class uiimage extends uibox
     Blend = false;
   }
   
-  private void DrawThis(PGraphics v)
+  void DrawThis(PGraphics v)
   {
     if(Tint) v.tint(TintColor);
     else v.noTint();
-    if(Blend) v.blend(Image, 0, 0, img.width, img.height, 0, 0, Width, Height, BlendMode);
+    if(Blend) v.blend(Image, 0, 0, Image.width, Image.height, 0, 0, (int) Width, (int) Height, BlendMode);
     else v.image(Image, 0, 0, Width, Height);
   }
 }
-
 

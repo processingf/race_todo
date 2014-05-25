@@ -18,13 +18,5 @@ void draw()
   image(backImg, 0, 0, 800, 600);
   Update();
   Cursor.Draw();
-  Vwr1.BeginView();
-  Vwr1.X = mouseX;
-  Vwr1.Y = mouseY;
-  ActiveView.background(255);
-  ActiveView.fill(255);
-  ActiveView.rect(0, 0, 10, 10);
-  Vwr1.EndView();
-  Vwr1.Draw();
 }
 
