@@ -1,93 +1,84 @@
-class level
+class uimap
 {
-  PFont[] Font;
-  PImage[] Image;
-  String[] Text;
-  AudioPlayer[] Sound;
-  entity[][] Entity;
+  HashMap<String, PFont> Font;
+  HashMap<String, PImage> Image;
+  HashMap<String, String> Text;
+  HashMap<String, AudioPlayer> Sound;
+  HashMap<String, uielem> Elem;
+  uielem[][] Layer;
   
   level()
   {
-    Font = new PFont[16];
-    Image = new PImage[16];
-    Text = new String[16];
-    Sound = new AudioPlayer[16];
-    Entity = new entity[16][];
+    Font = new HashMap();
+    Image = new HashMap();
+    Text = new HashMap();
+    Sound = new HashMap();
+    Elem = new HashMap();
+    Layer = new uielem[16][];
     for(int i=0; i<16; i++)
-    { Entity[i] = new entity[16]; }
+    { Layer[i] = new uielem[16]; }
   }
-
-  void AddFont(int id, PFont fnt)
-  { if(id >= Font.length) expand(Font, id+16); Font[id] = fnt; }
     
-  void AddImage(int id, PImage img)
-  { if(id >= Image.length) expand(Image, id+16); Image[id] = img; }
-    
-  void AddText(int id, String txt)
-  { if(id >= Text.length) expand(Text, id+16); Text[id] = txt; }
-    
-  void AddSound(int id, AudioPlayer snd)
-  { if(id >= Sound.length) expand(Sound, id+16); Sound[id] = snd; }
-  
-  void AddEntity(entity obj, int layer, int id)
-  { if(Entity[layer].length <= id) expand(Entity[layer], id+16); Entity[layer][id] = obj; }
-    
-  void LoadFonts(XML xml)
+  void LoadFont(XML xml)
   {
-    XML[] fntXml = xml.getChildren("font");
-    for(int i=0; i<fntXml.length; i++)
+    XML[] t = xml.getChildren("loadfont");
+    for(int i=0; i<t.length; i++)
     {
-      int id = fntXml[i].getInt("id");
-      String file = fntXml[i].getString("file");
-      AddFont(id, loadFont(file));
+      String id = t[i].getString("id");
+      String file = t[i].getString("file");
+      Font.put(id, loadFont(file));
     }
   }
     
-  void LoadImages(XML xml)
+  void LoadImage(XML xml)
   {
-    XML[] imgXml = xml.getChildren("image");
-    for(int i=0; i<imgXml.length; i++)
+    XML[] t = xml.getChildren("loadimage");
+    for(int i=0; i<t.length; i++)
     {
-      int id = imgXml[i].getInt("id");
-      String file = imgXml[i].getString("file");
-      AddImage(id, loadImage(file));
+      String id = t[i].getString("id");
+      String file = t[i].getString("file");
+      Image.put(id, loadImage(file));
     }
   }
     
-  void LoadTexts(XML xml)
+  void LoadText(XML xml)
   {
-    XML[] strXml = xml.getChildren("text");
-    for(int i=0; i<strXml.length; i++)
+    XML[] t = xml.getChildren("text");
+    for(int i=0; i<t.length; i++)
     {
-      int id = strXml[i].getInt("id");
-      String value = strXml[i].getString("value");
-      AddText(id, value);
+      String id = t[i].getString("id");
+      String value = t[i].getString("value");
+      Text.put(id, value);
     }
   }
     
-  void LoadSounds(XML xml)
+  void LoadSound(XML xml)
   {
-    XML[] sndXml = xml.getChildren("sound");
-    for(int i=0; i<sndXml.length; i++)
+    XML[] t = xml.getChildren("sound");
+    for(int i=0; i<t.length; i++)
     {
-      int id = sndXml[i].getInt("id");
-      String file = sndXml[i].getString("file");
-      AddSound(id, minim.loadFile(file));
+      String id = t[i].getString("id");
+      String file = t[i].getString("file");
+      Sound.put(id, minim.loadFile(file));
     }
   }
   
-  void LoadEntities(XML xml)
+  void LoadElem(XML xml)
   {
-    XML[] objXml = xml.getChildren("entity");
-    for(int i=0; i<objXml.length; i++)
+    XML[] t = xml.getChildren();
+    for(int i=0; i<t.length; i++)
     {
-      int id = objXml[i].getInt("id");
-      int layer = objXml[i].getInt("layer");
-      int image = objXml[i].getInt("image");
-      float x = objXml[i].getFloat("x");
-      float y = objXml[i].getFloat("y");;
-      float angle = objXml[i].getFloat("angle");
-      float scale = objXml[i].getFloat("scale");
+      tag tx = new tag(t[i]);
+      String name = t[i].getName();
+      String id = tx.GetString("id");
+      Float x = tx.GetFloat("x");
+      Float y = tx.GetFloat("y");
+      Float angle = tx.GetFloat("angle");
+      Float scale = tx.GetFloat("scale");
+      Float drawdistance = tx.GetFloat("drawdistance");
+      Float width_ = tx.GetFloat("width");
+      Float height_ = tx.GetFloat("height");
+      
       entity obj = new entity(Image[image], x, y, angle, scale);
       AddEntity(obj, layer, id); 
     }
@@ -96,22 +87,22 @@ class level
   void Load(String file)
   {
     XML xml = loadXML(file);
-    LoadFonts(xml);
-    LoadImages(xml);
-    LoadTexts(xml);
-    LoadSounds(xml);
-    LoadEntities(xml);
+    LoadFont(xml);
+    LoadImage(xml);
+    LoadText(xml);
+    LoadSound(xml);
+    LoadElem(xml);
   }
   
   void Draw(PGraphics v)
   {
     v.background(255);
-    for(int i=0; i<Entity.length; i++)
+    for(int i=0; i<Elem.length; i++)
     {
-      for(int j=0; j<Entity[i].length; j++)
+      for(int j=0; j<Elem[i].length; j++)
       {
-        if(Entity[i][j] == null) continue;
-        Entity[i][j].Draw(v);
+        if(Elem[i][j] == null) continue;
+        Elem[i][j].Draw(v);
       }
     }
   }
