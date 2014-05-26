@@ -13,6 +13,7 @@ void setup()
 void draw()
 {
   Update();
+  Cursor.Text = ""+Option.Get("radius");
   Cursor.Draw();
 }
 

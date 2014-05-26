@@ -1,18 +1,39 @@
 <?xml version="1.0"?>
-<level0>
+<map0>
 
 <!-- load data -->
-<image id="0" file="Car0.png" />
-<image id="1" file="Car1.png" />
-<sound id="0" file="Frontend.mp3" />
+<loadimage id="c0" file="Car0.png" />
+<loadimage id="c1" file="Car1.png" />
+<loadimage id="road" file="Road.jpg" />
+<loadsound id="bckmusic" file="Frontend.mp3" />
 
-<!-- level entities -->
-<entity id="0" layer="0" image="0" x="0" y="0" angle="0" scale="1" />
-<entity id="0" layer="1" image="0" x="200" y="0" angle="1" scale="0.5" />
-<entity id="0" layer="2" image="0" x="0" y="200" angle="2" scale="0.2" />
-<entity id="1" layer="0" image="1" x="0" y="0" angle="0" scale="1" />
-<entity id="1" layer="1" image="1" x="0" y="200" angle="1" scale="0.5" />
-<entity id="1" layer="2" image="1" x="200" y="0" angle="2" scale="0.2" />
-<entity id="1" layer="3" image="1" x="200" y="0" angle="3" scale="0.1" />
+<!-- elements -->
+<uiimage id="p1" image="c0" x="0" y="0" angle="0" scale="1" />
+<uiimage id="p2" image="c1" x="0" y="0" angle="0" scale="1" />
+<uiimage id="obj1" image="c0" x="200" y="0" angle="1" scale="0.5" />
+<uiimage id="obj2" image="c0" x="0" y="200" angle="2" scale="0.2" />
+<uiimage id="obj3" image="c1" x="0" y="200" angle="1" scale="0.5" />
+<uiimage id="obj4" image="c1" x="200" y="0" angle="2" scale="0.2" />
+<uiimage id="obj5" image="c1" x="200" y="0" angle="3" scale="0.1" />
+<uishape id="road" image="road" x="0" y="0" angle="0" scale="1" >
+	<vertex x="0" y="0" imagex="0" imagey="0" />
+	<vertex x="100" y="0" imagex="0.3" imagey="0" />
+	<vertex x="200" y="100" imagex="0.6" imagey="0" />
+	<vertex x="300" y="100" imagex="1.0" imagey="0" />
+	<vertex x="300" y="300" imagex="1.0" imagey="1.0" />
+	<vertex x="200" y="300" imagex="0.6" imagey="1.0" />
+	<vertex x="100" y="200" imagex="0.3" imagey="1.0" />
+	<vertex x="0" y="200" imagex="0" imagey="1.0" />
+</uishape>
 
-</level0>
+<!-- map to layers -->
+<mapuielem layer="1" id="p1" />
+<mapuielem layer="2" id="p2" />
+<mapuielem layer="1" id="obj1" />
+<mapuielem layer="1" id="obj2" />
+<mapuielem layer="2" id="obj3" />
+<mapuielem layer="2" id="obj4" />
+<mapuielem layer="2" id="obj5" />
+<mapuielem layer="0" id="road" />
+
+</map0>

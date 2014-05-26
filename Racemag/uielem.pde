@@ -37,8 +37,15 @@ class uielem
     if(parent != null) parent.AddChild(this);
   }
   
+  // flaw: use model to get actual direction
   uielem GetDirection(float off)
-  { return new uielem(cos(Angle+off), sin(Angle+off), off, 1); } 
+  { return new uielem(cos(Angle+off), sin(Angle+off), off, 1); }
+  
+  void MoveDirection(float x, float y)
+  {
+    X += x*cos(Angle) - y*sin(Angle);
+    Y += y*cos(Angle) + x*sin(Angle);
+  }
   
   float GetDistanceTo(float x, float y)
   { return abs(X - x) + abs(Y - y); }
@@ -46,8 +53,8 @@ class uielem
   void AddChild(uielem elem)
   {
     elem.Parent = this;
-    if(Children == null) Children = new int[0];
-    Children = append(Children, elem);
+    if(Children == null) Children = new uielem[0];
+    Children = (uielem[]) append(Children, elem);
   }
   
   boolean Supports(int type)

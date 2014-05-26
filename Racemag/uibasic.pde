@@ -84,8 +84,8 @@ class uitext extends uibox
     Font = UiMap.Font.get(t.GetString("font", ""));
     Size = t.GetFloat("size", 16);
     Boxed = t.GetBoolean("boxed", false);
-    AlignX = Const.Get(t.GetString("alignx", "center"));
-    AlignY = Const.Get(t.GetString("aligny", "center"));
+    AlignX = Option.Get(t.GetString("alignx", "center"));
+    AlignY = Option.Get(t.GetString("aligny", "center"));
   }
   
   void DrawThis(PGraphics v)
@@ -116,8 +116,8 @@ class uishape extends uibox
     if(shape != null)
     { Shape = UiMap.Shape.get(shape); return; }
     PImage image = UiMap.Image.get(t.GetString("image", ""));
-    int mode = Const.Get(t.GetString("mode", "normal"));
-    int wrap = Const.Get(t.GetString("wrap", "clamp"));
+    int mode = Option.Get(t.GetString("mode", "normal"));
+    int wrap = Option.Get(t.GetString("wrap", "clamp"));
     XML[] tx = xml.getChildren("vertex");
     float[] vx = new float[tx.length];
     float[] vy = new float[tx.length];
@@ -150,8 +150,9 @@ class uishape extends uibox
     { s.vertex(vx[i], vy[i], ix[i], iy[i]); }
     s.endShape(CLOSE);
     Shape = s;
-    Width = s.width;
-    Height = s.height;
+    Width = 200; //s.width;
+    Height = 200; //s.height;
+    println(Width+","+Height);
   }
 
   void DrawThis(PGraphics v)
@@ -182,7 +183,7 @@ class uiimage extends uibox
     tag t = new tag(xml);
     Image = UiMap.Image.get(t.GetString("image", ""));
     TintColor = t.GetHexInt("tintcolor", 0);
-    BlendMode = Const.Get(t.GetString("blendmode", "BLEND"));
+    BlendMode = Option.Get(t.GetString("blendmode", "BLEND"));
     Tint = t.GetBoolean("tint", false);
     Blend = t.GetBoolean("blend", false);
   }

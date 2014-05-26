@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<options>
+  <option id="top" value="101"/>
+  <option id="bottom" value="102"/>
+  <option id="left" value="37"/>
+  <option id="right" value="39"/>
+  <option id="center" value="3"/>
+  <option id="rgb" value="1"/>
+  <option id="hsb" value="3"/>
+  <option id="corner" value="0"/>
+  <option id="corners" value="1"/>
+  <option id="image" value="2"/>
+  <option id="normal" value="1"/>
+  <option id="repeat" value="1"/>
+  <option id="clamp" value="0"/>
+  <option id="blend" value="1"/>
+  <option id="add" value="2"/>
+  <option id="subtract" value="4"/>
+  <option id="darkest" value="16"/>
+  <option id="lightest" value="8"/>
+  <option id="difference" value="32"/>
+  <option id="exclusion" value="64"/>
+  <option id="multiply" value="128"/>
+  <option id="screen" value="256"/>
+  <option id="replace" value="0"/>
+  <option id="hard_light" value="1024"/>
+  <option id="soft_light" value="2048"/>
+  <option id="overlay" value="512"/>
+  <option id="dodge" value="4096"/>
+  <option id="burn" value="8192"/>
+  <option id="baseline" value="0"/>
+  <option id="model" value="4"/>
+  <option id="shape" value="5"/>
+  <option id="close" value="2"/>
+  <option id="radius" value="2"/>
+</options>

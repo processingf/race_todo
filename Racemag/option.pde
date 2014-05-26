@@ -1,13 +1,16 @@
-class const
+class option
 {
   IntDict Map;
   
-  const()
+  // option setting file
+  final String OptionsFile = "options.xml";
+  
+  option()
   { Map = new IntDict(); }
   
   void Load(XML xml)
   {
-    XML[] t = xml.getChildren("const");
+    XML[] t = xml.getChildren("option");
     for(int i=0; i<t.length; i++)
     {
       String id = t[i].getString("id");
@@ -16,9 +19,15 @@ class const
     }
   }
   
-  void Get(String id)
+  void Load()
+  {
+    XML xml = loadXML(OptionsFile);
+    Load(xml);
+  }
+  
+  int Get(String id)
   { return Map.get(id); }  
 }
 
-const Const = new const();
+option Option = new option();
 

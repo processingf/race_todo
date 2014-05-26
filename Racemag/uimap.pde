@@ -6,7 +6,7 @@ class uimap
   HashMap<String, PShape> Shape;
   HashMap<String, AudioPlayer> Sound;
   HashMap<String, uielem> Elem;
-  uielem[][] Layer;
+  ArrayList<uielem>[] Layer;
   
   uimap()
   {
@@ -16,9 +16,9 @@ class uimap
     Shape = new HashMap();
     Sound = new HashMap();
     Elem = new HashMap();
-    Layer = new uielem[16][];
+    Layer = new ArrayList[16];
     for(int i=0; i<16; i++)
-    { Layer[i] = new uielem[16]; }
+    { Layer[i] = new ArrayList(); }
   }
   
   void LoadFont(XML xml)
@@ -82,38 +82,32 @@ class uimap
     XML[] t = xml.getChildren();
     for(int i=0; i<t.length; i++)
     {
+      if(t[i].toString().length() == 0) continue;
       tag tx = new tag(t[i]);
-      String id = tx.GetString("id"); 
-      switch(t[i].getName())
-      {
-        case "uielem":
-        elem = new uielem(t[i], parent);
-        break;
-        case "uibox":
-        elem = new uibox(t[i], parent);
-        break;
-        case "uirect":
-        elem = new uirect(t[i], parent);
-        break;
-        case "uitext":
-        elem = new uitext(t[i], parent);
-        break;
-        case "uishape":
-        elem = new uishape(t[i], parent);
-        break;
-        case "uiimage":
-        elem = new uiimage(t[i], parent);
-        break;
-        case "uicamera":
-        elem = new uicamera(t[i], parent);
-        default:
-        elem = null;
-        break;
-      }
-      if(elem == null) continue;
+      String nm = t[i].getName();
+      if(nm.equals("uielem")) elem = new uielem(t[i], parent);
+      else if(nm.equals("uibox")) elem = new uibox(t[i], parent);
+      else if(nm.equals("uirect")) elem = new uirect(t[i], parent);
+      else if(nm.equals("uitext")) elem = new uitext(t[i], parent);
+      else if(nm.equals("uishape")) elem = new uishape(t[i], parent);
+      else if(nm.equals("uiimage")) elem = new uiimage(t[i], parent);
+      else if(nm.equals("uicamera")) elem = new uicamera(t[i], parent);
+      else continue;
+      String id = tx.GetString("id");
       Elem.put(id, elem);
       if(t[i].hasChildren())
       { LoadUiElem(t[i], elem); }
+    }
+  }
+  
+  void MapUiElem(XML xml)
+  {
+    XML[] t = xml.getChildren("mapuielem");
+    for(int i=0; i<t.length; i++)
+    {
+      int layer = t[i].getInt("layer");
+      String id = t[i].getString("id");
+      Layer[layer].add(Elem.get(id));
     }
   }
   
@@ -125,18 +119,25 @@ class uimap
     LoadImage(xml);
     LoadShape(xml);
     LoadSound(xml);
-    LoadElem(xml, null);
+    LoadUiElem(xml, null);
+    MapUiElem(xml);
+  }
+  
+  void Update()
+  {
+    for(int i=0; i<Layer.length; i++)
+    {
+      for(int j=0; j<Layer[i].size(); j++)
+      { Layer[i].get(j).Update(); }
+    }
   }
   
   void Draw(PGraphics v)
   {
     for(int i=0; i<Layer.length; i++)
     {
-      for(int j=0; j<Layer[i].length; j++)
-      {
-        if(Layer[i][j] == null) continue;
-        Layer[i][j].Draw(v);
-      }
+      for(int j=0; j<Layer[i].size(); j++)
+      { Layer[i].get(j).Draw(v); }
     }
   }
 }

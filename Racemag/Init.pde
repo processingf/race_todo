@@ -1,16 +1,16 @@
 Minim minim = new Minim(this);
 PImage BackImg, RoadImg;
 uicamera CamP1;
-uimap UiMap;
 
 void Init()
 {
   textSize(24);
   Input.Load();
-  Input.Save();
-  CamP1 = new uicamera(100, 100, 500, 500);
+  Option.Load();
   UiMap.Load("map0.xml");
   UiMap.Sound.get("bckmusic").play();
+  CamP1 = new uicamera(100, 100, 500, 500);
+  CamP1.Absolute = true;
   BackImg = loadImage("CatFight.jpg");
 }
 
