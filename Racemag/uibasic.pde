@@ -12,6 +12,15 @@ class uibox extends uielem
     DrawDistance = wdth + hght;
   }
   
+  uibox(XML xml, uielem parent)
+  {
+    super(xml, parent);
+    tag t = new tag(xml);
+    Width = t.GetFloat("width", 64);
+    Height = t.GetFloat("height", 64);
+    Color = t.GetHexInt("color", 0);
+  }
+  
   void DrawThis(PGraphics v)
   {
     v.noStroke();
@@ -31,6 +40,14 @@ class uirect extends uibox
     super(x, y, angle, scale, wdth, hght, clr);
     EdgeWidth = edgeWdth;
     EdgeColor = edgeClr;
+  }
+  
+  uirect(XML xml, uielem parent)
+  {
+    super(xml, parent);
+    tag t = new tag(xml);
+    EdgeWidth = t.GetFloat("edgewidth", 0);
+    EdgeColor = t.GetHexInt("edgecolor", 0);
   }
   
   void DrawThis(PGraphics v)
@@ -58,6 +75,19 @@ class uitext extends uibox
     AlignX = CENTER; AlignY = CENTER;
   }
   
+  uitext(XML xml, uielem parent)
+  {
+    super(xml, parent);
+    tag t = new tag(xml);
+    if(xml.hasAttribute("text")) Text = t.GetString("text", "");
+    else Text = UiMap.Text.get(t.GetString("textref", ""));
+    Font = UiMap.Font.get(t.GetString("font", ""));
+    Size = t.GetFloat("size", 16);
+    Boxed = t.GetBoolean("boxed", false);
+    AlignX = Const.Get(t.GetString("alignx", "center"));
+    AlignY = Const.Get(t.GetString("aligny", "center"));
+  }
+  
   void DrawThis(PGraphics v)
   {
     v.textFont(Font, Size);
@@ -78,9 +108,39 @@ class uishape extends uibox
     Shape = shp;
   }
 
+  uishape(XML xml, uielem parent)
+  {
+    super(xml, parent);
+    tag t = new tag(xml);
+    String shape = t.GetString("shape");
+    if(shape != null)
+    { Shape = UiMap.Shape.get(shape); return; }
+    PImage image = UiMap.Image.get(t.GetString("image", ""));
+    int mode = Const.Get(t.GetString("mode", "normal"));
+    int wrap = Const.Get(t.GetString("wrap", "clamp"));
+    XML[] tx = xml.getChildren("vertex");
+    float[] vx = new float[tx.length];
+    float[] vy = new float[tx.length];
+    float[] ix = new float[tx.length];
+    float[] iy = new float[tx.length];
+    for(int i=0; i<tx.length; i++)
+    {
+      vx[i] = tx[i].getFloat("x");
+      vy[i] = tx[i].getFloat("y");
+      ix[i] = tx[i].getFloat("imagex");
+      iy[i] = tx[i].getFloat("imagey");
+    }
+    Build(image, mode, wrap, vx, vy, ix, iy);
+  }
+
   uishape(float x, float y, float angle, float scale, PImage txtr, int mode, int wrap, float[] vx, float[] vy, float[] ix, float[] iy)
   {
     super(x, y, angle, scale, 0, 0, 0);
+    Build(txtr, mode, wrap, vx, vy, ix, iy);
+  }
+  
+  void Build(PImage txtr, int mode, int wrap, float[] vx, float[] vy, float[] ix, float[] iy)
+  {
     PShape s = createShape();
     s.beginShape();
     s.textureMode(mode);
@@ -114,6 +174,17 @@ class uiimage extends uibox
     BlendMode = BLEND;
     Tint = false;
     Blend = false;
+  }
+  
+  uiimage(XML xml, uielem parent)
+  {
+    super(xml, parent);
+    tag t = new tag(xml);
+    Image = UiMap.Image.get(t.GetString("image", ""));
+    TintColor = t.GetHexInt("tintcolor", 0);
+    BlendMode = Const.Get(t.GetString("blendmode", "BLEND"));
+    Tint = t.GetBoolean("tint", false);
+    Blend = t.GetBoolean("blend", false);
   }
   
   void DrawThis(PGraphics v)

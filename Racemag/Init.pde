@@ -1,7 +1,7 @@
 Minim minim = new Minim(this);
-PImage roadImg;
+PImage BackImg, RoadImg;
 uicamera CamP1;
-uimap Level;
+uimap UiMap;
 
 void Init()
 {
@@ -9,9 +9,9 @@ void Init()
   Input.Load();
   Input.Save();
   CamP1 = new uicamera(100, 100, 500, 500);
-  Level = new uimap();
-  Level.Load("level0.xml");
-  Level.Sound[0].play();
+  UiMap.Load("map0.xml");
+  UiMap.Sound.get("bckmusic").play();
+  BackImg = loadImage("CatFight.jpg");
 }
 
 void LoadPlayers()

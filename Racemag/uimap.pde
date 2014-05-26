@@ -1,24 +1,26 @@
 class uimap
 {
   HashMap<String, PFont> Font;
-  HashMap<String, PImage> Image;
   HashMap<String, String> Text;
+  HashMap<String, PImage> Image;
+  HashMap<String, PShape> Shape;
   HashMap<String, AudioPlayer> Sound;
   HashMap<String, uielem> Elem;
   uielem[][] Layer;
   
-  level()
+  uimap()
   {
     Font = new HashMap();
-    Image = new HashMap();
     Text = new HashMap();
+    Image = new HashMap();
+    Shape = new HashMap();
     Sound = new HashMap();
     Elem = new HashMap();
     Layer = new uielem[16][];
     for(int i=0; i<16; i++)
     { Layer[i] = new uielem[16]; }
   }
-    
+  
   void LoadFont(XML xml)
   {
     XML[] t = xml.getChildren("loadfont");
@@ -27,6 +29,17 @@ class uimap
       String id = t[i].getString("id");
       String file = t[i].getString("file");
       Font.put(id, loadFont(file));
+    }
+  }
+    
+  void LoadText(XML xml)
+  {
+    XML[] t = xml.getChildren("loadtext");
+    for(int i=0; i<t.length; i++)
+    {
+      String id = t[i].getString("id");
+      String value = t[i].getString("value");
+      Text.put(id, value);
     }
   }
     
@@ -41,20 +54,20 @@ class uimap
     }
   }
     
-  void LoadText(XML xml)
+  void LoadShape(XML xml)
   {
-    XML[] t = xml.getChildren("text");
+    XML[] t = xml.getChildren("loadshape");
     for(int i=0; i<t.length; i++)
     {
       String id = t[i].getString("id");
-      String value = t[i].getString("value");
-      Text.put(id, value);
+      String file = t[i].getString("file");
+      Shape.put(id, loadShape(file));
     }
   }
     
   void LoadSound(XML xml)
   {
-    XML[] t = xml.getChildren("sound");
+    XML[] t = xml.getChildren("loadsound");
     for(int i=0; i<t.length; i++)
     {
       String id = t[i].getString("id");
@@ -63,24 +76,44 @@ class uimap
     }
   }
   
-  void LoadElem(XML xml)
+  void LoadUiElem(XML xml, uielem parent)
   {
+    uielem elem;
     XML[] t = xml.getChildren();
     for(int i=0; i<t.length; i++)
     {
       tag tx = new tag(t[i]);
-      String name = t[i].getName();
-      String id = tx.GetString("id");
-      Float x = tx.GetFloat("x");
-      Float y = tx.GetFloat("y");
-      Float angle = tx.GetFloat("angle");
-      Float scale = tx.GetFloat("scale");
-      Float drawdistance = tx.GetFloat("drawdistance");
-      Float width_ = tx.GetFloat("width");
-      Float height_ = tx.GetFloat("height");
-      
-      entity obj = new entity(Image[image], x, y, angle, scale);
-      AddEntity(obj, layer, id); 
+      String id = tx.GetString("id"); 
+      switch(t[i].getName())
+      {
+        case "uielem":
+        elem = new uielem(t[i], parent);
+        break;
+        case "uibox":
+        elem = new uibox(t[i], parent);
+        break;
+        case "uirect":
+        elem = new uirect(t[i], parent);
+        break;
+        case "uitext":
+        elem = new uitext(t[i], parent);
+        break;
+        case "uishape":
+        elem = new uishape(t[i], parent);
+        break;
+        case "uiimage":
+        elem = new uiimage(t[i], parent);
+        break;
+        case "uicamera":
+        elem = new uicamera(t[i], parent);
+        default:
+        elem = null;
+        break;
+      }
+      if(elem == null) continue;
+      Elem.put(id, elem);
+      if(t[i].hasChildren())
+      { LoadUiElem(t[i], elem); }
     }
   }
   
@@ -88,23 +121,25 @@ class uimap
   {
     XML xml = loadXML(file);
     LoadFont(xml);
-    LoadImage(xml);
     LoadText(xml);
+    LoadImage(xml);
+    LoadShape(xml);
     LoadSound(xml);
-    LoadElem(xml);
+    LoadElem(xml, null);
   }
   
   void Draw(PGraphics v)
   {
-    v.background(255);
-    for(int i=0; i<Elem.length; i++)
+    for(int i=0; i<Layer.length; i++)
     {
-      for(int j=0; j<Elem[i].length; j++)
+      for(int j=0; j<Layer[i].length; j++)
       {
-        if(Elem[i][j] == null) continue;
-        Elem[i][j].Draw(v);
+        if(Layer[i][j] == null) continue;
+        Layer[i][j].Draw(v);
       }
     }
   }
 }
+
+uimap UiMap = new uimap();
 
