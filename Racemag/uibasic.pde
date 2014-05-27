@@ -152,7 +152,6 @@ class uishape extends uibox
     Shape = s;
     Width = 200; //s.width;
     Height = 200; //s.height;
-    println(Width+","+Height);
   }
 
   void DrawThis(PGraphics v)

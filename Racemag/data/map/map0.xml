@@ -2,10 +2,10 @@
 <map0>
 
 <!-- load data -->
-<loadimage id="c0" file="Car0.png" />
-<loadimage id="c1" file="Car1.png" />
-<loadimage id="road" file="Road.jpg" />
-<loadsound id="bckmusic" file="Frontend.mp3" />
+<loadimage id="c0" file="image\car\Car0.png" />
+<loadimage id="c1" file="image\car\Car1.png" />
+<loadimage id="road" file="image\road\Road.jpg" />
+<loadsound id="bckmusic" file="sound\Frontend.mp3" />
 
 <!-- elements -->
 <uiimage id="p1" image="c0" x="0" y="0" angle="0" scale="1" />
