@@ -155,7 +155,9 @@ class uishape extends uibox
   }
 
   void DrawThis(PGraphics v)
-  { v.shape(Shape, 0, 0, Width, Height); }
+  {
+    if(Width == 0 && Height == 0) v.shape(Shape, 0, 0, Width, Height);
+  }
 }
 
 
@@ -185,6 +187,8 @@ class uiimage extends uibox
     BlendMode = Option.Get(t.GetString("blendmode", "BLEND"));
     Tint = t.GetBoolean("tint", false);
     Blend = t.GetBoolean("blend", false);
+    Width = t.GetFloat("width", Image.width);
+    Height = t.GetFloat("height", Image.height);
   }
   
   void DrawThis(PGraphics v)

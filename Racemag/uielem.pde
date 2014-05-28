@@ -6,16 +6,7 @@ class uielem
   uielem[] Children;
   boolean Drawn;
   float DrawDistance;
-  
-  uielem(uielem e)
-  {
-    X = e.X; Y = e.Y;
-    Angle = e.Angle;
-    Scale = e.Scale;
-    Parent = e.Parent;
-    Children = e.Children;
-    DrawDistance = e.DrawDistance;
-  }
+  final int Support = 0x1;
   
   uielem(float x, float y, float angle, float scale)
   {
@@ -40,7 +31,7 @@ class uielem
   // flaw: use model to get actual direction
   uielem GetDirection(float off)
   { return new uielem(cos(Angle+off), sin(Angle+off), off, 1); }
-  
+   
   void MoveDirection(float x, float y)
   {
     X += x*cos(Angle) - y*sin(Angle);
@@ -58,7 +49,7 @@ class uielem
   }
   
   boolean Supports(int type)
-  { return type == 0; }
+  { return (type & Support) > 0; }
 
   void UpdateThis() {}
   
