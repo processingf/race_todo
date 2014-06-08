@@ -117,7 +117,6 @@ class uishape extends uibox
     { Shape = UiMap.Shape.get(shape); return; }
     PImage image = UiMap.Image.get(t.GetString("image", ""));
     int mode = Option.Get(t.GetString("mode", "normal"));
-    int wrap = Option.Get(t.GetString("wrap", "clamp"));
     XML[] tx = xml.getChildren("vertex");
     float[] vx = new float[tx.length];
     float[] vy = new float[tx.length];
@@ -130,33 +129,33 @@ class uishape extends uibox
       ix[i] = tx[i].getFloat("imagex");
       iy[i] = tx[i].getFloat("imagey");
     }
-    Build(image, mode, wrap, vx, vy, ix, iy);
+    Build(image, mode, vx, vy, ix, iy);
   }
 
-  uishape(float x, float y, float angle, float scale, PImage txtr, int mode, int wrap, float[] vx, float[] vy, float[] ix, float[] iy)
+  uishape(float x, float y, float angle, float scale, PImage txtr, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
   {
     super(x, y, angle, scale, 0, 0, 0);
-    Build(txtr, mode, wrap, vx, vy, ix, iy);
+    Build(txtr, mode, vx, vy, ix, iy);
   }
   
-  void Build(PImage txtr, int mode, int wrap, float[] vx, float[] vy, float[] ix, float[] iy)
+  void Build(PImage txtr, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
   {
     PShape s = createShape();
     s.beginShape();
     s.textureMode(mode);
-    textureWrap(wrap);
     s.texture(txtr);
     for(int i=0; i<vx.length; i++)
     { s.vertex(vx[i], vy[i], ix[i], iy[i]); }
     s.endShape(CLOSE);
+    Width = s.width;
+    Height = s.height;
     Shape = s;
-    Width = 200; //s.width;
-    Height = 200; //s.height;
   }
 
   void DrawThis(PGraphics v)
   {
-    if(Width == 0 && Height == 0) v.shape(Shape, 0, 0, Width, Height);
+    if(Width == 0 && Height == 0) v.shape(Shape, 0, 0);
+    else v.shape(Shape, 0, 0, Width, Height);
   }
 }
 

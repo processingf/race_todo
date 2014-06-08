@@ -47,6 +47,7 @@ class uicamera extends uielem
     v.translate(-AbsX, -AbsY);
     v.rectMode(CENTER);
     v.imageMode(CENTER);
+    v.textureWrap(REPEAT);
   }
   
   void EndView()

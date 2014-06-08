@@ -123,12 +123,12 @@ class uimap
     MapUiElem(xml);
   }
   
-  void Update()
+  void Refresh()
   {
     for(int i=0; i<Layer.length; i++)
     {
       for(int j=0; j<Layer[i].size(); j++)
-      { Layer[i].get(j).Update(); }
+      { Layer[i].get(j).Refresh(); }
     }
   }
   

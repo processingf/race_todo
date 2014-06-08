@@ -12,7 +12,7 @@ void Update()
   if(i.Active[i.P2_RIGHT]) CamP1.Angle += 0.01;
   CamP1.BeginView();
   CamP1.View.background(255);
-  UiMap.Update();
+  UiMap.Refresh();
   UiMap.Draw(CamP1.View);
   CamP1.EndView();
   CamP1.Draw();
