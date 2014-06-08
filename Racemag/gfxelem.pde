@@ -54,17 +54,6 @@ class gfxelem
     Angle = angle; Scale = scale;
   }
   
-  uielem(XML xml, uielem parent)
-  {
-    tag t = new tag(xml);
-    X = t.GetFloat("x", 0);
-    Y = t.GetFloat("y", 0);
-    Angle = t.GetFloat("angle", 0);
-    Scale = t.GetFloat("scale", 1);
-    DrawDistance = t.GetFloat("drawdistance", 0);
-    if(parent != null) parent.AddChild(this);
-  }
-  
   uielem GetDirection(float off)
   { return new uielem(cos(Angle+off), sin(Angle+off), off, 1); }
    
