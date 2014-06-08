@@ -131,34 +131,10 @@ class gfxshape extends gfxrect
     Shape = shp;
   }
 
-  uishape(XML xml, uielem parent)
+  gfxshape(float x, float y, float a, float s, float r, PImage i, int m, float[] vx, float[] vy, float[] ix, float[] iy)
   {
-    super(xml, parent);
-    tag t = new tag(xml);
-    String shape = t.GetString("shape");
-    if(shape != null)
-    { Shape = UiMap.Shape.get(shape); return; }
-    PImage image = UiMap.Image.get(t.GetString("image", ""));
-    int mode = Option.Get(t.GetString("mode", "normal"));
-    XML[] tx = xml.getChildren("vertex");
-    float[] vx = new float[tx.length];
-    float[] vy = new float[tx.length];
-    float[] ix = new float[tx.length];
-    float[] iy = new float[tx.length];
-    for(int i=0; i<tx.length; i++)
-    {
-      vx[i] = tx[i].getFloat("x");
-      vy[i] = tx[i].getFloat("y");
-      ix[i] = tx[i].getFloat("imagex");
-      iy[i] = tx[i].getFloat("imagey");
-    }
-    Build(image, mode, vx, vy, ix, iy);
-  }
-
-  uishape(float x, float y, float angle, float scale, PImage txtr, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
-  {
-    super(x, y, angle, scale, 0, 0, 0);
-    Build(txtr, mode, vx, vy, ix, iy);
+    super(x, y, a, s, r, 0, 0, 0, 0, 0);
+    Build(i, m, vx, vy, ix, iy);
   }
   
   void Build(PImage txtr, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
@@ -175,6 +151,7 @@ class gfxshape extends gfxrect
     Shape = s;
   }
 
+  @Override
   void DrawThis(PGraphics v)
   {
     if(Width == 0 && Height == 0) v.shape(Shape, 0, 0);
@@ -183,7 +160,7 @@ class gfxshape extends gfxrect
 }
 
 
-class uiimage extends uibox
+class uiimage extends uirect
 {
   PImage Image;
   color TintColor;
