@@ -160,42 +160,27 @@ class gfxshape extends gfxrect
 }
 
 
-class uiimage extends uirect
+class gfximage extends gfxrect
 {
   PImage Image;
   color TintColor;
-  int BlendMode;
-  boolean Tint, Blend;
+  int Mode;
   
-  uiimage(float x, float y, float angle, float scale, PImage img)
+  gfximage(float x, float y, float a, float s, float r, float w, float h, PImage i, color t, int m)
   {
-    super(x, y, angle, scale, img.width, img.height, 0);
-    Image = img;
-    TintColor = 0;
-    BlendMode = BLEND;
-    Tint = false;
-    Blend = false;
+    super(x, y, a, s, r, i.width, i.height, 0, 0, 0);
+    Image = i;
+    TintColor = t;
+    Mode = m;
   }
   
-  uiimage(XML xml, uielem parent)
-  {
-    super(xml, parent);
-    tag t = new tag(xml);
-    Image = UiMap.Image.get(t.GetString("image", ""));
-    TintColor = t.GetHexInt("tintcolor", 0);
-    BlendMode = Option.Get(t.GetString("blendmode", "BLEND"));
-    Tint = t.GetBoolean("tint", false);
-    Blend = t.GetBoolean("blend", false);
-    Width = t.GetFloat("width", Image.width);
-    Height = t.GetFloat("height", Image.height);
-  }
-  
+  @Override
   void DrawThis(PGraphics v)
   {
-    if(Tint) v.tint(TintColor);
-    else v.noTint();
-    if(Blend) v.blend(Image, 0, 0, Image.width, Image.height, 0, 0, (int) Width, (int) Height, BlendMode);
-    else v.image(Image, 0, 0, Width, Height);
+    if(TintColor == 0) v.noTint();
+    else v.tint(TintColor);
+    if(Mode == 0) v.image(Image, 0, 0, Width, Height);
+    else v.blend(Image, 0, 0, Image.width, Image.height, 0, 0, (int) Width, (int) Height, Mode);
   }
 }
 
