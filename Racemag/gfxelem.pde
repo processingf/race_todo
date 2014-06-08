@@ -80,7 +80,7 @@ class gfxelem
   {
     child.Parent = this;
     if(Children == null) Children = new gfxelem[0];
-    Children = (gfxelem[]) append(Children, elem);
+    Children = (gfxelem[]) append(Children, child);
   }
   
   boolean Supports(int type)

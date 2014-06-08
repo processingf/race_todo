@@ -5,8 +5,8 @@ class uimap
   HashMap<String, PImage> Image;
   HashMap<String, PShape> Shape;
   HashMap<String, AudioPlayer> Sound;
-  HashMap<String, uielem> Elem;
-  ArrayList<uielem>[] Layer;
+  HashMap<String, gfxelem> Elem;
+  ArrayList<gfxelem>[] Layer;
   
   uimap()
   {
@@ -76,22 +76,22 @@ class uimap
     }
   }
   
-  void LoadUiElem(XML xml, uielem parent)
+  /*
+  void LoadGfxElem(XML xml, gfxelem parent)
   {
-    uielem elem;
+    gfxelem elem;
     XML[] t = xml.getChildren();
     for(int i=0; i<t.length; i++)
     {
       if(t[i].toString().length() == 0) continue;
       tag tx = new tag(t[i]);
       String nm = t[i].getName();
-      if(nm.equals("uielem")) elem = new uielem(t[i], parent);
-      else if(nm.equals("uibox")) elem = new uibox(t[i], parent);
-      else if(nm.equals("uirect")) elem = new uirect(t[i], parent);
-      else if(nm.equals("uitext")) elem = new uitext(t[i], parent);
-      else if(nm.equals("uishape")) elem = new uishape(t[i], parent);
-      else if(nm.equals("uiimage")) elem = new uiimage(t[i], parent);
-      else if(nm.equals("uicamera")) elem = new uicamera(t[i], parent);
+      if(nm.equals("uielem")) elem = new gfxelem(t[i], parent);
+      else if(nm.equals("uirect")) elem = new gfxrect(t[i], parent);
+      else if(nm.equals("uitext")) elem = new gfxtext(t[i], parent);
+      else if(nm.equals("uishape")) elem = new gfxshape(t[i], parent);
+      else if(nm.equals("uiimage")) elem = new gfximage(t[i], parent);
+      else if(nm.equals("uicamera")) elem = new gfxcamera(t[i], parent);
       else continue;
       String id = tx.GetString("id");
       Elem.put(id, elem);
@@ -99,6 +99,7 @@ class uimap
       { LoadUiElem(t[i], elem); }
     }
   }
+  */
   
   void MapUiElem(XML xml)
   {

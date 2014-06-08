@@ -15,5 +15,5 @@ void Update()
   UiMap.Refresh();
   UiMap.Draw(CamP1.View);
   CamP1.EndView();
-  CamP1.Draw();
+  CamP1.DrawView();
 }

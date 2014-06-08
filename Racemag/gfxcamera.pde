@@ -49,7 +49,7 @@ class gfxcamera extends gfxelem
     ViewX = vx; ViewY = vy;
     ViewWidth = vw; ViewHeight = vh;
     AbsX = 0; AbsY = 0; AbsAngle = 0;
-    View = createGraphics(VeiwWidth, ViewHeight, P2D);
+    View = createGraphics(ViewWidth, ViewHeight, P2D);
   }
   
   void DrawThis(PGraphics v)
@@ -65,7 +65,7 @@ class gfxcamera extends gfxelem
     AbsX = X; AbsY = Y;
     AbsAngle = Angle;
     v.beginDraw();
-    v.translate(Width/2, Height/2);
+    v.translate(ViewWidth/2, ViewHeight/2);
     v.scale(Scale);
     v.rotate(-AbsAngle);
     v.translate(-AbsX, -AbsY);

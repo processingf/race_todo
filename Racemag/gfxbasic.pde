@@ -60,7 +60,7 @@ class gfxrect extends gfxelem
     else { v.strokeWeight(EdgeWidth); v.stroke(EdgeColor); }
     if(FillColor == 0) v.noFill();
     else v.fill(FillColor);
-    DrawShape();
+    DrawShape(v);
   }
 }
 
@@ -81,7 +81,7 @@ class gfxarc extends gfxrect
   float StartAngle, StopAngle;
   int Mode;
   
-  uirect(float x, float y, float a, float s, float r, float w, float h, float ew, color ec, color fc, float ta, float pa, int m)
+  gfxarc(float x, float y, float a, float s, float r, float w, float h, float ew, color ec, color fc, float ta, float pa, int m)
   {
     super(x, y, a, s, r, w, h, ew, ec, fc);
     StartAngle = ta;
@@ -128,7 +128,7 @@ class gfxshape extends gfxrect
   gfxshape(float x, float y, float a, float s, float r, PShape sh)
   {
     super(x, y, a, s, r, sh.width, sh.height, 0, 0, 0);
-    Shape = shp;
+    Shape = sh;
   }
 
   gfxshape(float x, float y, float a, float s, float r, PImage i, int m, float[] vx, float[] vy, float[] ix, float[] iy)

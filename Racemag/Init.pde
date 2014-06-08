@@ -9,8 +9,7 @@ void Init()
   Option.Load();
   UiMap.Load("map\\map0.xml");
   UiMap.Sound.get("bckmusic").play();
-  CamP1 = new gfxcamera(100, 100, 500, 500);
-  CamP1.Absolute = true;
+  CamP1 = new gfxcamera(0, 0, 0, 1, 500, 100, 100, 500, 500);
   BackImg = loadImage("image\\background\\CatFight.jpg");
 }
 
