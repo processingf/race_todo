@@ -35,8 +35,11 @@
  * This file is part of the Racemag game using Processing.
  */
 
+
 class gfxelem
 {
+
+
   // data
   float X, Y, Range;
   float Angle, Scale;
@@ -44,9 +47,11 @@ class gfxelem
   gfxelem[] Children;
   gfxelem Parent;
 
+
   // constants
   final int Flags = 0x1;
   
+
   // initialization
   gfxelem(float x, float y, float angle, float scale, float range)
   {
@@ -54,37 +59,43 @@ class gfxelem
     Angle = angle; Scale = scale;
   }
   
-  uielem GetDirection(float off)
-  { return new uielem(cos(Angle+off), sin(Angle+off), off, 1); }
-   
+
+  // functions
+  float[] GetDirection(float off)
+  { return new float[]{cos(Angle+off), sin(Angle+off)}; }
+  
   void MoveDirection(float x, float y)
   {
     X += x*cos(Angle) - y*sin(Angle);
     Y += y*cos(Angle) + x*sin(Angle);
   }
   
-  float GetDistanceTo(float x, float y)
+  float GetFastDistanceTo(float x, float y)
   { return abs(X - x) + abs(Y - y); }
   
-  void AddChild(uielem elem)
+  float GetDistanceTo(float x, float y)
+  { return sqrt((X-x)*(X-x) + (Y-y)*(Y-y)); }
+  
+  void AddChild(gfxelem child)
   {
-    elem.Parent = this;
-    if(Children == null) Children = new uielem[0];
-    Children = (uielem[]) append(Children, elem);
+    child.Parent = this;
+    if(Children == null) Children = new gfxelem[0];
+    Children = (gfxelem[]) append(Children, elem);
   }
   
   boolean Supports(int type)
-  { return (type & Support) > 0; }
+  { return (type & Flags) > 0; }
 
-  void RefreshThis() {}
+  void PrepareThis() {}
   
-  void Refresh()
+  void Prepare()
   {
+    if(!Active) return;
     Drawn = false;
-    RefreshThis();
+    PrepareThis();
     if(Children == null) return;
     for(int i=0; i<Children.length; i++)
-    { Children[i].Refresh(); }
+    { Children[i].Prepare(); }
   }
   
   void UpdateThis(PGraphics v) {}
@@ -93,7 +104,7 @@ class gfxelem
   
   void Draw(PGraphics v)
   {
-    if(Drawn) return;
+    if(!Active || Drawn) return;
     Drawn = true;
     v.pushMatrix();
     v.translate(X, Y);
@@ -108,5 +119,7 @@ class gfxelem
     }
     v.popMatrix();
   }
-}
+
+
+} // end class gfxelem
 
