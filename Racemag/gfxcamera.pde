@@ -49,33 +49,21 @@ class gfxcamera extends gfxelem
     ViewX = vx; ViewY = vy;
     ViewWidth = vw; ViewHeight = vh;
     AbsX = 0; AbsY = 0; AbsAngle = 0;
-    View = createGraphics(Width, Height, P2D);
-  }
-  
-  gfxcamera(XML xml, uielem parent)
-  {
-    super(xml, parent);
-    Absolute = false;
-    ViewX = xml.getInt("viewx");
-    ViewY = xml.getInt("viewy");
-    Width = xml.getInt("width");
-    Height = xml.getInt("height");
-    AbsX = 0; AbsY = 0; AbsAngle = 0;
-    View = createGraphics(Width, Height, P2D);
+    View = createGraphics(VeiwWidth, ViewHeight, P2D);
   }
   
   void DrawThis(PGraphics v)
   {
-    AbsX = modelX(0, 0, 0);
-    AbsY = modelY(0, 0, 0);
-    AbsAngle = atan2(modelY(1, 0, 0), modelX(1, 0, 0));
+    AbsX = v.modelX(0, 0, 0) - ViewWidth/2;
+    AbsY = v.modelY(0, 0, 0) - ViewHeight/2;
+    AbsAngle = atan2(v.modelY(1, 0, 0), v.modelX(1, 0, 0));
   }
   
   void BeginView()
   {
     PGraphics v = View;
-    if(Absolute)
-    { AbsX = X; AbsY = Y; AbsAngle = Angle; }
+    AbsX = X; AbsY = Y;
+    AbsAngle = Angle;
     v.beginDraw();
     v.translate(Width/2, Height/2);
     v.scale(Scale);
