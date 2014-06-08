@@ -31,7 +31,7 @@
  * ----------------------------------------------------------------------- */
 
 /* 
- * gfxelem.pde - Define a basic graphics element with associated functions
+ * gfxelem.pde - Define a root graphics element with associated functions
  * This file is part of the Racemag game using Processing.
  */
 
@@ -53,10 +53,10 @@ class gfxelem
   
 
   // initialization
-  gfxelem(float x, float y, float angle, float scale, float range)
+  gfxelem(float x, float y, float a, float s, float r)
   {
-    X = x; Y = y; Range = Range;
-    Angle = angle; Scale = scale;
+    X = x; Y = y; Range = r;
+    Angle = a; Scale = s;
   }
   
 
