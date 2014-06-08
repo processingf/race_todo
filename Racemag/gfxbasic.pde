@@ -39,93 +39,79 @@
 class gfxrect extends gfxelem
 {
   float Width, Height;
-  color StrokeColor, FillColor;
-  float StrokeWeight;
+  color EdgeColor, FillColor;
+  float EdgeWidth;
   
-  gfxrect(float x, float y, float a, float s, float r, float w, float h, float sw, color sc, color fc)
+  gfxrect(float x, float y, float a, float s, float r, float w, float h, float ew, color ec, color fc)
   {
     super(x, y, a, s, r);
     Width = w; Height = h;
-    StrokeWeight = sw;
-    StrokeColor = sc;
+    EdgeWidth = ew;
+    EdgeColor = ec;
     FillColor = fc;
   }
   
+  void DrawShape(PGraphics v) { v.rect(0, 0, Width, Height); }
+  
+  @Override
   void DrawThis(PGraphics v)
   {
-    v.noStroke();
-    v.fill(Color);
-    v.rect(0, 0, Width, Height);
+    if(EdgeColor == 0) v.noStroke();
+    else { v.strokeWeight(EdgeWidth); v.stroke(EdgeColor); }
+    if(FillColor == 0) v.noFill();
+    else v.fill(FillColor);
+    DrawShape();
   }
 }
 
 
-
-class gfxarc extends gfxelem
+class gfxellipse extends gfxrect
 {
+  gfxellipse(float x, float y, float a, float s, float r, float w, float h, float ew, color ec, color fc)
+  { super(x, y, a, s, r, w, h, ew, ec, fc); }
   
+  @Override
+  void DrawShape(PGraphics v)
+  { v.ellipse(0, 0, Width, Height); }
 }
 
 
-class uirect extends uibox
+class gfxarc extends gfxrect
 {
-  float EdgeWidth;
-  color EdgeColor;
+  float StartAngle, StopAngle;
+  int Mode;
   
-  uirect(float x, float y, float angle, float scale, float wdth, float hght, color clr, float edgeWdth, color edgeClr)
+  uirect(float x, float y, float a, float s, float r, float w, float h, float ew, color ec, color fc, float ta, float pa, int m)
   {
-    super(x, y, angle, scale, wdth, hght, clr);
-    EdgeWidth = edgeWdth;
-    EdgeColor = edgeClr;
+    super(x, y, a, s, r, w, h, ew, ec, fc);
+    StartAngle = ta;
+    StopAngle = pa;
+    Mode = m; 
   }
   
-  uirect(XML xml, uielem parent)
-  {
-    super(xml, parent);
-    tag t = new tag(xml);
-    EdgeWidth = t.GetFloat("edgewidth", 0);
-    EdgeColor = t.GetHexInt("edgecolor", 0);
-  }
-  
-  void DrawThis(PGraphics v)
-  {
-    v.strokeWeight(EdgeWidth);
-    v.stroke(EdgeColor);
-    v.fill(Color);
-    v.rect(0, 0, Width, Height);
-  }
+  @Override
+  void DrawShape(PGraphics v)
+  { v.arc(0, 0, Width, Height, StartAngle, StopAngle, Mode); }
 }
 
 
-class uitext extends uibox
+class gfxtext extends gfxrect
 {
   String Text;
-  PFont Font;
-  float Size;
-  boolean Boxed;
+  PFont Font; float Size;
   int AlignX, AlignY;
+  boolean Boxed;
   
-  uitext(float x, float y, float angle, float scale, color clr, String txt, PFont fnt, float size)
+  gfxtext(float x, float y, float a, float s, float r, float w, float h, color c, String t, PFont f, float sz, int ax, int ay, boolean b)
   {
-    super(x, y, angle, scale, 0, 0, clr);
-    Text = txt; Font = fnt; Size = size; Boxed = false;
-    AlignX = CENTER; AlignY = CENTER;
+    super(x, y, a, s, r, w, h, 0, 0, c);
+    Text = t; Font = f; Size = sz;
+    AlignX = ax; AlignY = ay;
+    Boxed = b;
   }
   
-  uitext(XML xml, uielem parent)
-  {
-    super(xml, parent);
-    tag t = new tag(xml);
-    if(xml.hasAttribute("text")) Text = t.GetString("text", "");
-    else Text = UiMap.Text.get(t.GetString("textref", ""));
-    Font = UiMap.Font.get(t.GetString("font", ""));
-    Size = t.GetFloat("size", 16);
-    Boxed = t.GetBoolean("boxed", false);
-    AlignX = Option.Get(t.GetString("alignx", "center"));
-    AlignY = Option.Get(t.GetString("aligny", "center"));
-  }
-  
-  void DrawThis(PGraphics v)
+  @Override
+  void DrawShape(PGraphics v)
   {
     v.textFont(Font, Size);
     v.textAlign(AlignX, AlignY);
@@ -135,13 +121,13 @@ class uitext extends uibox
 }
 
 
-class uishape extends uibox
+class gfxshape extends gfxrect
 {
   PShape Shape;
   
-  uishape(float x, float y, float angle, float scale, PShape shp)
+  gfxshape(float x, float y, float a, float s, float r, PShape sh)
   {
-    super(x, y, angle, scale, shp.width, shp.height, 0);
+    super(x, y, a, s, r, sh.width, sh.height, 0, 0, 0);
     Shape = shp;
   }
 
