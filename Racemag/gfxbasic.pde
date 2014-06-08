@@ -51,15 +51,6 @@ class gfxrect extends gfxelem
     FillColor = fc;
   }
   
-  uibox(XML xml, uielem parent)
-  {
-    super(xml, parent);
-    tag t = new tag(xml);
-    Width = t.GetFloat("width", 64);
-    Height = t.GetFloat("height", 64);
-    Color = t.GetHexInt("color", 0);
-  }
-  
   void DrawThis(PGraphics v)
   {
     v.noStroke();
