@@ -41,16 +41,21 @@
 // required libraries
 import ddf.minim.*;
 
+PImage map;
 
 // initialization
 void setup()
 {
-  size(800, 600, P2D);
+  size(800, 400, P2D);
+  map = loadImage("map.png");
 }
 
 
 // main execution
 void draw()
 {
+  image(map, 0, 0);
+  for(int i=0; i<20; i++)
+  rect(400+20*randomGaussian(), 200 + 20*randomGaussian(), 10, 10);
 }
 

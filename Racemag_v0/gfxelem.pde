@@ -86,6 +86,7 @@ class gfxelem
   boolean Supports(int type)
   { return (type & Flags) > 0; }
 
+  
   void PrepareThis() {}
   
   void Prepare()
