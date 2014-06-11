@@ -1,28 +1,21 @@
 class phyelem extends viselem
 {
-  
-  
   // data
   PVector Ref, Dir;
   viselem BelongsTo;
   float Range, RefRange;
-  
-  
-  // constants
+  phyhandler Handler;
   final int Flags = 0x0200; 
   
-  
-  // initialization
-  phyelem(PVector p, float r)
+  // functions
+  phyelem(PVector p, float r, viselem b, phyhandler h)
   {
-    super(p);
-    Range = r;
+    super(p); Range = r;
     Ref = new PVector();
     Dir = new PVector();
+    BelongsTo = b; Handler = h;
   }
   
-  
-  // functions
   void DrawThis()
   {
     // capture coords
@@ -44,7 +37,6 @@ class phyelem extends viselem
       { ProcessThis(phy); }
     }
   }
-  
   
 } // end class phyelem
 

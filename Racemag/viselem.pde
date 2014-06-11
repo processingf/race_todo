@@ -6,7 +6,6 @@ class viselem
   viselem Parent;
   final int Flags = 0x0000; 
   
-  
   // functions
   viselem(PVector p)
   { Pos = p; Children = new ArrayList(); }

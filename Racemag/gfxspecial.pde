@@ -12,16 +12,11 @@ class gfxrange extends gfxelem
   
   void UpdateRange()
   {
-    Ref.x = modelX(0, 0, 0);
-    Ref.y = modelY(0, 0, 0);
-    Dir.x = modelX(1, 0, 0) - Ref.x;
-    Dir.y = modelY(1, 0, 0) - Ref.y;
+    Ref.x = modelX(0, 0, 0) - ViewSz.x;
+    Ref.y = modelY(0, 0, 0) - ViewSz.y;
+    Dir.x = modelX(1, 0, 0) - ViewSz.x - Ref.x;
+    Dir.y = modelY(1, 0, 0) - ViewSz.y - Ref.y;
     RefRange = Range * Dir.mag();
-  }
-  
-  boolean IsInRange()
-  {
-    return true;
   }
   
   void Draw()
@@ -31,34 +26,30 @@ class gfxrange extends gfxelem
     rotate(Angle);
     scale(Scale);
     UpdateRange();
-    if(IsInRange())
+    if(Ref.mag() <= ViewRange + RefRange)
     {
       DrawThis();
       for(int i=0; i<Children.size(); i++)
       { Children.get(i).Draw(); } 
-      popMatrix();
     }
+    popMatrix();
   }
 }
 
 
-class gfxsplit extends gfxrange
+class gfxselrange extends gfxrange
 {
-  float SplitRange, RefSplitRange;
+  float SelRange, RefSelRange;
+  ArrayList<viselem> SelIn, SelOut;
   
-  
-  gfxsplit(PVector p, float a, float s, float r, float sr)
-  { super(p, a, s, r); SplitRange = sr; }
+  gfxselrange(PVector p, float a, float s, float r, float sr)
+  { super(p, a, s, r); SelRange = sr; }
   
   void UpdateRange()
   {
     super.UpdateRange();
-    RefSplitRange = SplitRange * Dir.mag();
+    RefSelRange = SelRange * Dir.mag();
   }
-  
-  boolean IsInSplitRange()
-  { return true; }
-  
   
   void Draw()
   {
@@ -67,13 +58,54 @@ class gfxsplit extends gfxrange
     rotate(Angle);
     scale(Scale);
     UpdateRange();
-    if(IsInRange())
+    float dist = Ref.mag();
+    if(dist <= ViewRange + RefRange)
     {
       DrawThis();
       for(int i=0; i<Children.size(); i++)
-      { Children.get(i).Draw(); } 
-      popMatrix();
+      { Children.get(i).Draw(); }
+      if(dist <= RefSelRange) for(int i=0; i<SelIn.size(); i++)
+      { SelIn.get(i).Draw(); }
+      else for(int i=0; i<SelOut.size(); i++)
+      { SelOut.get(i).Draw(); }
     }
+    popMatrix();
+  }
+}
+
+
+class gfxselscale extends gfxrange
+{
+  float SelScale, RefSelScale;
+  ArrayList<viselem> SelCon, SelExp;
+  
+  gfxselscale(PVector p, float a, float s, float r, float ss)
+  { super(p, a, s, r); SelScale = ss; }
+  
+  void UpdateRange()
+  {
+    super.UpdateRange();
+    RefSelScale = SelScale * Dir.mag();
+  }
+  
+  void Draw()
+  {
+    pushMatrix();
+    translate(Pos.x, Pos.y);
+    rotate(Angle);
+    scale(Scale);
+    UpdateRange();
+    if(Ref.mag() <= ViewRange + RefRange)
+    {
+      DrawThis();
+      for(int i=0; i<Children.size(); i++)
+      { Children.get(i).Draw(); }
+      if(Dir.mag() <= RefSelScale) for(int i=0; i<SelCon.size(); i++)
+      { SelCon.get(i).Draw(); }
+      else for(int i=0; i<SelExp.size(); i++)
+      { SelExp.get(i).Draw(); }
+    }
+    popMatrix();
   }
 }
 

@@ -41,13 +41,29 @@
 // required libraries
 import ddf.minim.*;
 
+
 PImage map;
+gfxrect Rect1, Rect2;
+phycollcir Coll1, Coll2;
+ArrayList<viselem> ForColl1, ForColl2;
 
 // initialization
 void setup()
 {
   size(800, 400, P2D);
+  rectMode(CENTER);
+  imageMode(CENTER);
+  textureWrap(REPEAT);
   map = loadImage("map.png");
+  Rect1 = new gfxrect(new PVector(), 0, 1, 50, 60, 10, color(0), 0);
+  Rect2 = new gfxrect(new PVector(40, 40), 0, 1, 50, 60, 10, color(0), 0);
+  abc x = new abc();
+  Coll1 = new phycollcir(new PVector(), 50, Rect1, x);
+  Coll2 = new phycollcir(new PVector(), 50, Rect2, x);
+  Rect1.AddChild(Coll1);
+  Rect2.AddChild(Coll2);
+  ForColl1 = new ArrayList(); ForColl1.add(Coll2);
+  ForColl2 = new ArrayList(); ForColl2.add(Coll1);
 }
 
 
@@ -57,5 +73,10 @@ void draw()
   image(map, 0, 0);
   for(int i=0; i<20; i++)
   rect(400+20*randomGaussian(), 200 + 20*randomGaussian(), 10, 10);
+  Rect1.Pos.x = mouseX;
+  Rect1.Pos.y = mouseY;
+  Rect1.Draw();
+  Rect2.Draw();
+  Coll1.Process(ForColl1);
 }
 
