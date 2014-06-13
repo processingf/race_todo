@@ -41,6 +41,7 @@
 // A single access object of this class is to be created
 class input
 {
+
   
   // Data
   // ----
