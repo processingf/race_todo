@@ -88,7 +88,9 @@ class gfxrect extends gfxelem
     else               fill(FillColor);
     DrawShape();
   }
-}
+
+
+} // end class gfxrect
 
 
 
@@ -112,7 +114,9 @@ class gfxellipse extends gfxrect
   // Draws the ellipse (shape)
   void DrawShape()
   { ellipse(0, 0, Width, Height); }
-}
+
+
+} // end class gfxellipse
 
 
 
@@ -148,7 +152,9 @@ class gfxarc extends gfxrect
   // Draws the arc (shape)
   void DrawShape()
   { arc(0, 0, Width, Height, StartAngle, StopAngle, Mode); }
-}
+
+
+} // end class gfxarc
 
 
 
@@ -198,7 +204,9 @@ class gfxtext extends gfxelem
     if(Boxed) text(Text, 0, 0, Width, Height);
     else      text(Text, 0, 0);
   }
-}
+
+
+} // end class gfxtext
 
 
 
@@ -225,52 +233,55 @@ class gfxshape extends gfxelem
   }
   
   
-  // Constructor (position, angle, scale, image, mode, vertex x, vertex y, image x, image y)
-  // ---------------------------------------------------------------------------------------
-  // Creates a new gfxshape class object with specified parameters
-  gfxshape(PVector p, float a, float s, PImage i, int m, float[] vx, float[] vy, float[] ix, float[] iy)
-  { super(p, a, s); Build(i, m, vx, vy, ix, iy); }
-  
-  
-  // Draw This ()
-  // ------------
-  // Draws this object
-  void Build(PImage txtr, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
-  {
-    PShape s = createShape();
-    s.beginShape();
-    s.textureMode(mode);
-    s.texture(txtr);
-    for(int i=0; i<vx.length; i++)
-    { s.vertex(vx[i], vy[i], ix[i], iy[i]); }
-    s.endShape(CLOSE);
-    Shape = s;
-  }
-  
-  
   // Draw This ()
   // ------------
   // Draws this object
   void DrawThis()
   { shape(Shape, 0, 0); }
-}
 
 
+} // end class gfxshape
+
+
+
+
+// Graphics Image class
+// --------------------
+// Use this class to draw images
 class gfximage extends gfxelem
 {
-  PImage Image;
-  color TintColor;
-  int Mode;
+
+
+  // Data
+  // ----
+  PImage Image;      // Image to be drawn (load using loadImage)
+  color  TintColor;  // Tint color to be applied to the image (0 for no tint)
+  int    Mode;       // Blend mode to be used with the background (0 for no blend)
   
+  
+  // Constructor (position, angle, scale, image, tint color, mode)
+  // -------------------------------------------
+  // Creates a new gfximage class object with specified parameters
   gfximage(PVector p, float a, float s, PImage i, color t, int m)
-  { super(p, a, s); Image = i; TintColor = t; Mode = m; }
+  {
+    super(p, a, s);
+    Image     = i;
+    TintColor = t;
+    Mode      = m;
+  }
   
+  
+  // Draw This ()
+  // ------------
+  // Draws this object
   void DrawThis()
   {
     if(TintColor == 0) noTint();
-    else tint(TintColor);
+    else               tint(TintColor);
     if(Mode == 0) image(Image, 0, 0);
-    else blend(Image, 0, 0, Image.width, Image.height, 0, 0, Image.width, Image.height, Mode);
+    else          blend(Image, 0, 0, Image.width, Image.height, 0, 0, Image.width, Image.height, Mode);
   }
-}
+
+
+} // end class gfximage
 

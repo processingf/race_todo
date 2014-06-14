@@ -80,3 +80,21 @@ void draw()
   Coll1.Process(ForColl1);
 }
 
+
+  
+  
+  // Draw This ()
+  // ------------
+  // Draws this object
+  PShape BuildTexture(PImage img, int mode, float[] vx, float[] vy, float[] ix, float[] iy)
+  {
+    PShape s = createShape();
+    s.beginShape();
+    s.textureMode(mode);
+    s.texture(img);
+    for(int i=0; i<vx.length; i++)
+    { s.vertex(vx[i], vy[i], ix[i], iy[i]); }
+    s.endShape(CLOSE);
+    return s;
+  }
+
