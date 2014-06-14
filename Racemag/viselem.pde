@@ -31,12 +31,12 @@
  * ----------------------------------------------------------------------- */
 
 /* 
- * viselem.pde - Visual element class (basic) which can be extended to implement complex visual classes
+ * viselem.pde - Visual element class (root) which can be extended to implement complex visual classes
  * This file is part of the Racemag game using Processing.
  */
 
 
-// Visual element class
+// Visual Element class
 // --------------------
 // Use this class to define complex visual classes
 class viselem

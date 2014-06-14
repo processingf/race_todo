@@ -31,12 +31,12 @@
  * ----------------------------------------------------------------------- */
 
 /* 
- * gfxelem.pde - Graphics element class (basic) which can be extended to implement complex graphics classes
+ * gfxelem.pde - Graphics element class (root) which can be extended to implement complex graphics classes
  * This file is part of the Racemag game using Processing.
  */
 
 
-// Graphics element class
+// Graphics Element class
 // ----------------------
 // Use this class to define complex graphics classes
 class gfxelem extends viselem
