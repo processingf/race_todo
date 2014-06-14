@@ -54,14 +54,14 @@ class gfxelem extends viselem
   final int Flags = 0x0100;  // Defines the properties of graphics element class
   
   
-  // Constructor
-  // -----------
-  // Create a new gfxelem class object.
-  gfxelem(PVector p, float a, float s)
+  // Constructor (position, angle, scale)
+  // ------------------------------------
+  // Creates a new gfxelem class object at specified relative position, angle and scale
+  gfxelem(PVector pos, float angle, float scale)
   {
     super(p);
-    Angle = a;
-    Scale = s;
+    Angle = angle;
+    Scale = scale;
   }
   
   
@@ -74,7 +74,7 @@ class gfxelem extends viselem
   
   // Move in a direction (distance, offset)
   // --------------------------------------
-  // Move a specified distance in the direction of the gfxobject with angle offset
+  // Moves this gfxelem a specified distance in the pointed direction with angle offset
   void MoveDirection(float d, float off)
   { Pos.add(PVector.mult(GetDirection(off), d)); }
   

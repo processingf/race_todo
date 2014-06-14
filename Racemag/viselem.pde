@@ -55,17 +55,17 @@ class viselem
   final int Flags = 0x0000;  // Defines the properties of visual element class
   
   
-  // Constructor
-  // -----------
-  // Create a new viselem class object.
-  viselem(PVector p)
+  // Constructor (position)
+  // ----------------------
+  // Creates a new viselem class object at specified relative position
+  viselem(PVector pos)
   {
-    Pos      = p;
+    Pos      = pos;
     Children = new ArrayList();
   }
   
   
-  // Add Child (viselemObj)
+  // Add Child (child)
   // ----------------------
   // Adds a viselem object as a child to this object
   void AddChild(viselem child)

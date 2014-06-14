@@ -82,9 +82,9 @@ class input
   final String ControlsFile = "key_controls.xml";
   
   
-  // Constructor
-  // -----------
-  // Create a new input class object.
+  // Constructor ()
+  // --------------
+  // Creates a new input class object
   // Note: Only one object is (to be) created
   input()
   {
@@ -109,8 +109,8 @@ class input
   }
   
   
-  // Load Controls (xmlObject)
-  // -------------------------
+  // Load Controls (XML object)
+  // --------------------------
   // Loads Controls from an XML object
   void LoadControls(XML xml)
   {
@@ -124,8 +124,8 @@ class input
   }
   
   
-  // Load (xmlObject)
-  // ----------------
+  // Load ()
+  // -------
   // Loads Key Names and Controls from specified XML files
   void Load()
   {
@@ -134,9 +134,9 @@ class input
   }
   
   
-  // Save Controls (xmlObject)
-  // -------------------------
-  // Save Controls to an XML object
+  // Save Controls (XML object)
+  // --------------------------
+  // Saves Controls to an XML object
   void SaveControls(XML xml)
   {
     for(int i=0; i<Control.length; i++)
@@ -149,9 +149,9 @@ class input
   }
   
   
-  // Save (xmlObject)
-  // ----------------
-  // Save Controls to specified XML file
+  // Save ()
+  // -------
+  // Saves Controls to specified XML file
   void Save()
   {
     String xmlStr = "<?xml version=\"1.0\"?>\n"+
