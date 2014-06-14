@@ -59,7 +59,7 @@ class gfxelem extends viselem
   // Creates a new gfxelem class object at specified relative position, angle and scale
   gfxelem(PVector pos, float angle, float scale)
   {
-    super(p);
+    super(pos);
     Angle = angle;
     Scale = scale;
   }
