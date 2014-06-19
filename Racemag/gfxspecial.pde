@@ -1,15 +1,73 @@
+/* ----------------------------------------------------------------------- *
+ *
+ *   Copyright (c) 2014, Subhajit Sahu
+ *   All rights reserved.
+ *
+ *   Redistribution and use in source and binary forms, with or without
+ *   modification, are permitted provided that the following
+ *   conditions are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *   * Redistributions in binary form must reproduce the above
+ *     copyright notice, this list of conditions and the following
+ *     disclaimer in the documentation and/or other materials provided
+ *     with the distribution.
+ *
+ *     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+ *     CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+ *     INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ *     MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *     DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ *     CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ *     SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+ *     NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ *     HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ *     CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ *     OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ *     EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * ----------------------------------------------------------------------- */
+
+/* 
+ * gfxspecial.pde - Graphics control classes (special) which can be used to control display of graphics
+ * This file is part of the Racemag game using Processing.
+ */
+
+
+// Graphics Range class
+// --------------------
+// Use this class to display graphics only if it is in display range
 class gfxrange extends gfxelem
 {
-  PVector Ref, Dir;
-  float Range, RefRange;
+
+
+  // Data
+  // ----
+  PVector Ref;       // Relative position of this object wrt the camera
+  PVector Dir;       // Direction vector pointed by this object wrt the camera * scaling factor
+  float   Range;     // Display range of this object (if distance to camera > range, then this is not drawn)
+  float   RefRange;  // Relative display range of this object wrt the camera
   
+  
+  // Constructor (position, angle, scale, range)
+  // -------------------------------------------
+  // Creates a new gfxrange class object at specified position, angle, scale and range
+  // This class object can be used to control display of a group of objects
+  // It can also be extended to create a ranged display object class
   gfxrange(PVector p, float a, float s, float r)
   {
-    super(p, a, s); Range = r;
-    Ref = new PVector();
-    Dir = new PVector();
+    super(p, a, s);
+    Range = r;
+    Ref   = new PVector();
+    Dir   = new PVector();
   }
   
+  
+  // Update Range ()
+  // ---------------
+  // Updates range of the object wrt the camera
   void UpdateRange()
   {
     Ref.x = modelX(0, 0, 0) - ViewSz.x;
@@ -19,12 +77,16 @@ class gfxrange extends gfxelem
     RefRange = Range * Dir.mag();
   }
   
+  
+  // Draw ()
+  // ------------
+  // Draws this object and all its children
   void Draw()
   {
     pushMatrix();
     translate(Pos.x, Pos.y);
     rotate(Angle);
-    scale(Scale);
+    scale (Scale);
     UpdateRange();
     if(Ref.mag() <= ViewRange + RefRange)
     {
@@ -34,9 +96,16 @@ class gfxrange extends gfxelem
     }
     popMatrix();
   }
-}
+  
+  
+} // end class gfxrange
 
 
+
+
+// Graphics Select Range class
+// ---------------------------
+// Use this class to display graphics selectively depending on the distance of camera to object
 class gfxselrange extends gfxrange
 {
   float SelRange, RefSelRange;
